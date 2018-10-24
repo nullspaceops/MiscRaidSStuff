@@ -34,8 +34,8 @@ var subject = "Anmeldehinweis für Raid " + formattedDate;
   
 if (weekday == 1 || weekday == 4){ /* Mon and Thursday*/
   for(index;index < names.length; index++){
-  var message = "Hallo " + names[index] +",\ndu erhälst wie gewünscht einen Anmeldehinweis für den heutigen (" + formattedDate + ") Raid.\nBitte überprüfe deinen Anmeldestatus unter dem folgendem Link:\n" +url +"\nDiese Email kannst du jederzeit bei Zebee (Sundown#7760) abbestellen.\nViele Grüße"; 
- 
+      var message = "Hallo " + names[index] + ",\ndu erhälst wie gewünscht einen Anmeldehinweis für den heutigen (" + formattedDate + ") Raid.\nBitte überprüfe deinen Anmeldestatus unter dem folgendem Link:\n" + url + "\nDiese Email kannst du jederzeit bei Zebee (Discord: El Presidente#7760) abbestellen.\nViele Grüße";
+
   MailApp.sendEmail(emailAdress[index], subject, message);
      }
   }
