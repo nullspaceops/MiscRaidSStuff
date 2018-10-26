@@ -53,10 +53,13 @@ function LockCells(){
 var date = new Date();
 var weekday = date.getDay();
 var sheet = SpreadsheetApp.getActive();
-var range = sheet.getRange('A1:B10');
-/*var range = sheet.getRange('A1:P62'); */ 
-  if (weekday == 1 || weekday == 4){/* Mon and Thursday*/
-    var protection = range.protect().setDescription("Anmelde-DL  vorbei - automatische Entsperrung zwischen 23:00-00:00 Uhr");
+
+/*Real Range is "A1:P62" */
+var range = "A1:B1"   
+var lockrange = sheet.getRange(range);
+  /* Mon and Thursday*/
+  if (weekday == 1 || weekday == 4){
+    var protection = lockrange.protect().setDescription("Anmelde-DL  vorbei - automatische Entsperrung zwischen 23:00-00:00 Uhr");
     var me = Session.getEffectiveUser();
     protection.addEditor(me);
     protection.removeEditors(protection.getEditors());
@@ -70,7 +73,8 @@ function UnlockCells() {
   var date = new Date();
   var weekday = date.getDay();
   var sheet = SpreadsheetApp.getActive();
-    if (weekday == 1 || weekday == 4) {/* Mon and Thursday*/
+    /* Mon and Thursday*/
+    if (weekday == 1 || weekday == 4) {
       var protections = sheet.getProtections(SpreadsheetApp.ProtectionType.RANGE);
       for (var i = 0; i < protections.length; i++) {
       var protection = protections[i];
@@ -78,5 +82,5 @@ function UnlockCells() {
               protection.remove();
        }
      }
-   }
+    }
 }
