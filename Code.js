@@ -1,23 +1,30 @@
 function makeCopy() {
 /* Erstellt ein regelmäßiges Backup der Tabelle, um sie vor z.B. Vandalismus zu schützen */
 
-var formattedDate = Utilities.formatDate(new Date(), "GMT+2", "dd.MM.yyyy", "HH:mm:ss");
-var ssID = SpreadsheetApp.getActiveSpreadsheet().getId();
-var sheetName = SpreadsheetApp.getActiveSpreadsheet().getName();
-var url = "https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key="+ ssID +  "&gid=0&portrait=true" +"&exportFormat=pdf"
-var result = UrlFetchApp.fetch(url);
-var contents = result.getContent();
-var name = SpreadsheetApp.getActiveSpreadsheet().getName() + " Backup " + formattedDate;
-var destination = DriveApp.getFolderById("XXXXXXXXXXXX");
-var file = DriveApp.getFileById(SpreadsheetApp.getActiveSpreadsheet().getId())
+    var date = new Date();
+    var formattedDate = Utilities.formatDate(date, "GMT+2", "dd.MM.yyyy");
+    var ssID = SpreadsheetApp.getActiveSpreadsheet().getId();
+    var sheetName = SpreadsheetApp.getActiveSpreadsheet().getName();
+    var url = "https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=" + ssID + "&gid=0&portrait=true" + "&exportFormat=pdf"
+    var result = UrlFetchApp.fetch(url);
+    var contents = result.getContent();
+    var name = SpreadsheetApp.getActiveSpreadsheet().getName() + " Backup " + formattedDate;
+    var FolderID = "1VSAWIm0WFNwpmE_ful1Vhn90lFCa8ncq"
+    var destination = DriveApp.getFolderById(FolderID);
+    var file = DriveApp.getFileById(SpreadsheetApp.getActiveSpreadsheet().getId())
 
-file.makeCopy(name, destination);
+    file.makeCopy(name, destination);
 
-var emailAdress = "xxxx@yyyy";
-var subject = "Backup " + formattedDate + " wurde angelegt.";
-var message = "Hallo User,\n das Backup des Raidkalenders wurde um " + formattedDate + " angelegt und befindet sich jetzt in der Ablage und im Anhang.\n Link: https://docs.google.com/spreadsheets/d/1I8ha5Yvh1K0aZ8VSc2o0MoFIWeeJjaxLZCE03OKBKfU/edit#gid=0";
+    var emailAdress = ["zebeedoo@outlook.com"];
+    var names = ["Zebee"];
+    var index = 0;
 
-MailApp.sendEmail(emailAdress, subject, message, {attachments:[{fileName:sheetName+".pdf", content:contents, mimeType:"application//pdf"}]});
+    var subject = "Backup " + formattedDate + " wurde angelegt.";
+
+    for (index; index < names.length; index++) {
+        var message = "Hallo " + names[index] + ",\n das Backup des Raidkalenders gerade angelegt und befindet sich jetzt in der Ablage und im Anhang.\n Link: https://docs.google.com/spreadsheets/d/1I8ha5Yvh1K0aZ8VSc2o0MoFIWeeJjaxLZCE03OKBKfU/edit#gid=0";
+        MailApp.sendEmail(emailAdress[index], subject, message, { attachments: [{ fileName: sheetName + ".pdf", content: contents, mimeType: "application//pdf" }] });
+    }
 }
 
 function sendReminder(){
