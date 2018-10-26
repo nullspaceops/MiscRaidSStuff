@@ -15,8 +15,8 @@ function makeCopy() {
 
     file.makeCopy(name, destination);
 
-    var emailAdress = ["zebeedoo@outlook.com"];
-    var names = ["Zebee"];
+    var emailAdress = ["xxx@yyyy"];
+    var names = ["nullspace"];
     var index = 0;
 
     var subject = "Backup " + formattedDate + " wurde angelegt.";
